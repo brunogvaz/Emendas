@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emendas", "Emendas\Emendas.csproj", "{4C99F68B-E48B-4486-B883-66F6329444C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImportarDados", "ImportarDados\ImportarDados.csproj", "{E920E998-C9FC-4879-A6A9-E7F97CBC39EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmendasApi", "EmendasApi\EmendasApi.csproj", "{FA0116D4-5288-4C0E-80B3-177EE8048620}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmendasModel", "EmendasModel\EmendasModel.csproj", "{3E7D9CB5-BF01-48FE-B38F-C078DDB3CC76}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emendas.Data", "Emendas.Data\Emendas.Data.csproj", "{B3C4B03D-CA2B-4CDF-B57C-149FBF25DF52}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emendas.Web", "Emendas.Web\Emendas.Web.csproj", "{C12C1B94-3B82-4952-8A11-C5FBE02A3EEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4C99F68B-E48B-4486-B883-66F6329444C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C99F68B-E48B-4486-B883-66F6329444C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C99F68B-E48B-4486-B883-66F6329444C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C99F68B-E48B-4486-B883-66F6329444C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E920E998-C9FC-4879-A6A9-E7F97CBC39EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E920E998-C9FC-4879-A6A9-E7F97CBC39EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E920E998-C9FC-4879-A6A9-E7F97CBC39EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E920E998-C9FC-4879-A6A9-E7F97CBC39EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA0116D4-5288-4C0E-80B3-177EE8048620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0116D4-5288-4C0E-80B3-177EE8048620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA0116D4-5288-4C0E-80B3-177EE8048620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA0116D4-5288-4C0E-80B3-177EE8048620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E7D9CB5-BF01-48FE-B38F-C078DDB3CC76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E7D9CB5-BF01-48FE-B38F-C078DDB3CC76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E7D9CB5-BF01-48FE-B38F-C078DDB3CC76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E7D9CB5-BF01-48FE-B38F-C078DDB3CC76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3C4B03D-CA2B-4CDF-B57C-149FBF25DF52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3C4B03D-CA2B-4CDF-B57C-149FBF25DF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3C4B03D-CA2B-4CDF-B57C-149FBF25DF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3C4B03D-CA2B-4CDF-B57C-149FBF25DF52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C12C1B94-3B82-4952-8A11-C5FBE02A3EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C12C1B94-3B82-4952-8A11-C5FBE02A3EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C12C1B94-3B82-4952-8A11-C5FBE02A3EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C12C1B94-3B82-4952-8A11-C5FBE02A3EEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
