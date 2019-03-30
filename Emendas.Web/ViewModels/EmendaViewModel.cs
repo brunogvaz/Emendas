@@ -23,11 +23,12 @@ namespace Emendas.Web.ViewModels
         public int Id { get; set; }
         public string CodEmenda { get; set; }
         public decimal Valor { get; set; }
-        public Parlamentar Parlamentar { get; set; }
-        public int ParlamentarId { get; set; }
         public int? PlanoTrabalhoId { get; set; }
-        public virtual PlanoTrabalho PlanoTrabalho { get; set; }
-       
+        public string PlanoTrabalhoCodigo { get; set; }
+        public string PlanoTrabalhoDescricao { get; set; }
+        public  ICollection<EmendaEmpenhoViewModel> EmendaEmpenho { get; set; }
+
+
 
     }
 }

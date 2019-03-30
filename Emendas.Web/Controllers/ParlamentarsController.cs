@@ -33,19 +33,19 @@ public class ParlamentarsController : ControllerBase
 
         // GET: api/Parlamentars
         [HttpGet]
-        public ActionResult<IEnumerable<Parlamentar>> GetParlamentars()
+        public ActionResult<IEnumerable<Parlamentar>> GetParlamentars(bool includeEmendas = true)
         {
-            return Ok(_repository.GetParlamentars());
+            return Ok(_mapper.Map<IEnumerable<Parlamentar>, IEnumerable<ParlamentarViewModel>>(_repository.GetParlamentars(includeEmendas)));
         }
 
         // GET: api/Parlamentars/5
         [HttpGet("{id}")]
-        public ActionResult<Parlamentar> GetParlamentar(int id)
+        public ActionResult<Parlamentar> GetParlamentar(int id,bool includeEmendas=true)
         {
 
             try
             {
-                var parlamentar = _repository.GetParlamentarById(id);
+                var parlamentar = _repository.GetParlamentarById(id,includeEmendas);
 
                 if (parlamentar != null)
                 {

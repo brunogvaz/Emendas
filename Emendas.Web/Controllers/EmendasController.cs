@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Emendas.Data;
+using Emendas.Web.ViewModels;
 using EmendasModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 
 namespace Emendas.Web.Controllers
 {
-   [Route("api/[Controller]")]
+    [Route("api/parlamentars/{parlamentarId}/emendas")]
    [ApiController]
     [Produces("application/json")]
     public class EmendasController : ControllerBase
@@ -27,11 +26,11 @@ namespace Emendas.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Emenda>> Get()
+        public ActionResult<IEnumerable<Emenda>> Get(int parlamentarId)
         {
             try
             {
-                return Ok(_repository.GetEmendas());
+                return Ok(_mapper.Map<IEnumerable<Emenda>, IEnumerable<EmendaViewModel>>(_repository.GetEmendasByParlamentar(parlamentarId)));
             }
             catch (Exception)
             {
