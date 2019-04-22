@@ -3,8 +3,8 @@ using System;
 using Emendas.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Emendas.Data.Migrations
 {
@@ -15,15 +15,14 @@ namespace Emendas.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("EmendasModel.Beneficiario", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CNPJ");
 
@@ -37,8 +36,7 @@ namespace Emendas.Data.Migrations
             modelBuilder.Entity("EmendasModel.Emenda", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CodEmenda");
 
@@ -46,7 +44,16 @@ namespace Emendas.Data.Migrations
 
                     b.Property<int?>("PlanoTrabalhoId");
 
-                    b.Property<decimal>("Valor");
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValorBloqueado");
+
+                    b.Property<decimal>("ValorImpedido");
+
+                    b.Property<decimal>("ValorIndicado");
+
+                    b.Property<decimal>("ValorPriorizado");
 
                     b.HasKey("Id");
 
@@ -63,11 +70,17 @@ namespace Emendas.Data.Migrations
 
                     b.Property<int>("EmpenhoId");
 
-                    b.Property<decimal>("ValorEmpenhado");
+                    b.Property<int>("BeneficiarioId");
 
-                    b.Property<decimal>("ValorPago");
+                    b.Property<decimal>("ValorEmpenhado")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("EmendaId", "EmpenhoId");
+                    b.Property<decimal>("ValorPago")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("EmendaId", "EmpenhoId", "BeneficiarioId");
+
+                    b.HasIndex("BeneficiarioId");
 
                     b.HasIndex("EmpenhoId");
 
@@ -77,8 +90,7 @@ namespace Emendas.Data.Migrations
             modelBuilder.Entity("EmendasModel.Empenho", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CodigoEmpenho");
 
@@ -90,8 +102,7 @@ namespace Emendas.Data.Migrations
             modelBuilder.Entity("EmendasModel.Parlamentar", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("CodParlamentar");
 
@@ -111,8 +122,7 @@ namespace Emendas.Data.Migrations
             modelBuilder.Entity("EmendasModel.Partido", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Codigo");
 
@@ -128,8 +138,7 @@ namespace Emendas.Data.Migrations
             modelBuilder.Entity("EmendasModel.PlanoTrabalho", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Codigo");
 
@@ -154,6 +163,11 @@ namespace Emendas.Data.Migrations
 
             modelBuilder.Entity("EmendasModel.EmendaEmpenho", b =>
                 {
+                    b.HasOne("EmendasModel.Beneficiario", "Beneficiario")
+                        .WithMany("EmendaEmpenho")
+                        .HasForeignKey("BeneficiarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("EmendasModel.Emenda", "Emenda")
                         .WithMany("EmendaEmpenho")
                         .HasForeignKey("EmendaId")

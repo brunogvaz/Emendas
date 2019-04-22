@@ -1,7 +1,7 @@
 ﻿using EmendasModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
+
 
 namespace Emendas.Data
 {
@@ -14,13 +14,21 @@ namespace Emendas.Data
         //           && level == LogLevel.Information, true) });
 
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
+       
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
 
-        //    optionsBuilder.UseSqlServer("Server = DESKTOP-GI6KUR4; Database = Emendas; User Id = sa; Password = saninatobiassimba123; ");
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+            optionsBuilder.
+                UseNpgsql("User ID=postgres;Password=sapostgres;Server=localhost;Port=5432;Database=Emendas;Integrated Security=false;Pooling=true;")
+               ;
+             
+            //optionsBuilder.UseSqlite( "Data Source = Emendas.sqlite");
+            base.OnConfiguring(optionsBuilder);
+
+            //optionsBuilder.UseSqlServer("Server = DESKTOP-GI6KUR4; Database = Emendas; User Id = sa; Password = saninatobiassimba123; ");
+            //base.OnConfiguring(optionsBuilder);
+        }
 
         public EmendasContext() : base()
         {
@@ -32,10 +40,14 @@ namespace Emendas.Data
         }  
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
+
         {
+
+
+            modelBuilder.ForNpgsqlUseIdentityColumns();
             modelBuilder.Entity<EmendaEmpenho>()
            
-          .HasKey(e => new { e.EmendaId, e.EmpenhoId });
+          .HasKey(e => new { e.EmendaId, e.EmpenhoId,e.BeneficiarioId });
             modelBuilder.Entity<EmendaEmpenho>()
                 .HasOne(e => e.Emenda)
                 .WithMany(b => b.EmendaEmpenho)
@@ -44,6 +56,10 @@ namespace Emendas.Data
                 .HasOne(bc => bc.Empenho)
                 .WithMany(c => c.EmendaEmpenhos)
                 .HasForeignKey(bc => bc.EmpenhoId);
+            modelBuilder.Entity<EmendaEmpenho>()
+               .HasOne(bc => bc.Beneficiario)
+               .WithMany(c => c.EmendaEmpenho)
+               .HasForeignKey(bc => bc.BeneficiarioId);
 
 
             modelBuilder.Entity<Emenda>()
@@ -69,6 +85,8 @@ namespace Emendas.Data
         public DbSet<Beneficiario> Beneficiarios { get; set; }
         public DbSet<Empenho> Empenhos { get; set; }
         public DbSet<EmendaEmpenho> EmendaEmpenhos { get; set; }
+
+
 
 
 

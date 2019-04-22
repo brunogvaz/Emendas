@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using AutoMapper;
 using Emendas.Data;
 using Emendas.Web.Services;
@@ -44,10 +41,40 @@ namespace Emendas.Web
 
 
             //});
+            //TODO tirar em productio 
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
 
 
             services.AddAutoMapper();
-            services.AddDbContext<EmendasContext>(cfg => cfg.UseSqlServer(Configuration.GetConnectionString("EmendasConnectionString")));
+
+
+
+
+            //services.AddDbContext<EmendasContext>(cfg => cfg.UseSqlServer(Configuration.GetConnectionString("EmendasConnectionString")));
+            //Add PostgreSQL support
+            services.AddDbContext<EmendasContext>(options => {
+                options.UseNpgsql(Configuration.GetConnectionString("EmendasPostgresConnectionString"));
+            });
+
+            //Add SQL Server support
+            //services.AddDbContext<CustomersDbContext>(options => {
+            //    options.UseSqlServer(Configuration.GetConnectionString("CustomersSqlServerConnectionString"));
+            //});
+
+            //Add SqLite support
+            //services.AddDbContext<EmendasContext>(options => {
+            //    options.UseSqlite(Configuration.GetConnectionString("EmendasSqliteConnectionString"));
+            //});
+
+
+
+
+
+
             services.AddTransient<IMailService, NullMailService>();
             services.AddScoped<IEmendasRepository, EmendasRepository>();
             
@@ -60,6 +87,8 @@ namespace Emendas.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseCors(options => options.AllowAnyOrigin());
             }
             else
             {

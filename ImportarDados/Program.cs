@@ -12,7 +12,7 @@ namespace ImportarDados
         {
             //ImportarPartidos.Importar();
             //ImportadorAutores.Importar();
-            ImportarEmendas.Importar();
+            //ImportarEmendas.Importar();
             ImportarEmpenhosPagamentos.Importar();
          
          

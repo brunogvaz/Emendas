@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<Parlamentar>
-@{
-    ViewData["Title"] = "Parlamentar";
-
-    foreach (var p in Model)
-    {
-        <li>@p.Name     @p.CodParlamentar</li>    
-    }
+@section Scripts{
+    <script src="~/clientapp/dist/runtime.js"></script>
+    <script src="~/clientapp/dist/polyfills.js"></script>
+    <script src="~/clientapp/dist/styles.js"></script>
+    <script src="~/clientapp/dist/vendor.js"></script>
+    <script src="~/clientapp/dist/main.js"></script>
 }
 
-<h1>Parlamentar</h1>
+
+<app-root></app-root>
+<app-hello-world></app-hello-world>
 

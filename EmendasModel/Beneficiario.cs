@@ -9,5 +9,7 @@ namespace EmendasModel
         public int Id { get; set; }
         public string CNPJ { get; set; }
         public string Nome { get; set; }
+
+        public virtual ICollection<EmendaEmpenho> EmendaEmpenho { get; set; }
     }
 }

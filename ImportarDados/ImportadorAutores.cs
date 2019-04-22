@@ -11,9 +11,10 @@ namespace ImportarDados
     public static class ImportadorAutores
     {
 
-        public static void Importar()
+        public static void Importar(ImportacaoEmendasDumpSiop importacao)
         {
-            IEnumerable<Parlamentar> list = ProcessCSVAutores("c:\\temp\\autores.csv");
+            IEnumerable<Parlamentar> list = ProcessCSVAutores(importacao);
+
 
 
             using (var context = new EmendasContext())
@@ -34,24 +35,30 @@ namespace ImportarDados
             }
         }
 
-        internal static IEnumerable<Parlamentar> ProcessCSVAutores(string csv)
+        internal static IEnumerable<Parlamentar> ProcessCSVAutores(ImportacaoEmendasDumpSiop importacao)
         {
-            return File.ReadAllLines(csv)
-                .Skip(1)
-                .Where(line => line.Length > 49)
+            return importacao.ProcessCSV()
                 .Select(ParseFromCsv).ToList();
         }
 
-        private static Parlamentar ParseFromCsv(string line)
+        private static Parlamentar ParseFromCsv(LinhaImportacaoEmendasDumpSiop line)
         {
-            var columns = line.Split(';');
 
+            //            0             1               2           3              4                               5               6        7       8           9           10                  11       12      13      14      15             16          17                  18                  19                                  20                  21              22                      23              24                          25              26                  27                          28                  29              30              31                      32                              33                  34                                      35                                      36
+            //Ano Exercício   Número    Emenda      Autor(nome)    Partido(sigla) Órgão(desc.)   Unidade Orçamentária(desc.)    Função  Subfunção   Programa Ação(desc.)    Localizador(desc.) Fonte    IDOC    IDUSO   GND     Modalidade  Beneficiário    Beneficiário(nome) Tipo Impedimento    Justificativa Impedimento(desc.)   Município(desc.)   Região(desc.)  População do Município PIB do Município Tipo Autor Emenda Tipo Autor Emenda(desc.)   Grupo Autor Emenda Grupo Autor Emenda(desc.)  Tipo de Crédito Tipo de Crédito(desc.) UF(desc.)  Prioridade Desbloqueio  Emenda Aprovada(Dot Atual) Valor Bloqueado da Emenda   Valor Impedido(por Beneficiário)   Valor Indicado(por Beneficiário)   Valor Priorizado(por Beneficiário)
+
+          
+            var posHifen = line.Autor.IndexOf('-');
             return new Parlamentar
             {
-                CodParlamentar = int.Parse(columns[0]),
-                TipoParlamentar = int.Parse(columns[2]),
-                Name = columns[4],
-                Partido=new Partido { Codigo= int.Parse(columns[6]) }
+
+
+                CodParlamentar = int.Parse(line.Autor.Substring(0, posHifen - 1).Trim()),
+                TipoParlamentar = line.TipoParlamentar,
+                Name = line.Autor.Substring(posHifen + 1).Trim(),
+                Partido=new Partido { Name= (line.Partido) 
+
+                }
 
 
             };

@@ -11,6 +11,8 @@ namespace EmendasModel
         public Emenda Emenda { get; set; }
         public int EmpenhoId { get; set; }
         public Empenho Empenho { get; set; }
+        public int BeneficiarioId { get; set; }
+        public Beneficiario Beneficiario { get; set; }
         public decimal ValorEmpenhado { get; set; }
         public decimal ValorPago { get; set; }
     }

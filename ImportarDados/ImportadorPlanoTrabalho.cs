@@ -8,11 +8,10 @@ using System.Text;
 
 namespace ImportarDados
 {
-    public class ImportadorPlanoTrabalho
-    {
+    public class ImportadorPlanoTrabalho { 
         private static void Importar()
         {
-            IEnumerable<Parlamentar> list = ProcessCSVAutores("c:\\temp\\autores.csv");
+            IEnumerable<Parlamentar> list = ProcessCSVPlano("c:\\temp\\autores.csv");
 
 
             using (var context = new EmendasContext())
@@ -31,23 +30,18 @@ namespace ImportarDados
             }
         }
 
-        internal static IEnumerable<Parlamentar> ProcessCSVAutores(string csv)
+        internal new IEnumerable<PlanoTrabalho> ProcessCSVAuTores(LinhaImportacaoEmendasDumpSiop csv)
         {
-            return File.ReadAllLines(csv)
-                .Skip(1)
-                .Where(line => line.Length > 59)
-                .Select(ParseFromCsv).ToList();
+            return base.ProcessCSV(csv).Select(ParseFromCsv).ToList();
         }
-
-        private static Parlamentar ParseFromCsv(string line)
+       
+        private static PlanoTrabalho ParseFromCsv(string line)
         {
             var columns = line.Split(';');
 
-            return new Parlamentar
+            return new PlanoTrabalho
             {
-                CodParlamentar = int.Parse(columns[0]),
-                TipoParlamentar = int.Parse(columns[2]),
-                Name = columns[4],
+                //TODO
 
 
             };

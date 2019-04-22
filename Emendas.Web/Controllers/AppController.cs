@@ -55,9 +55,11 @@ namespace Emendas.Web.Controllers
 
         public IActionResult Parlamentar()
         {
-            ViewBag.Title = "Empenhos";
-            var result = _repository.GetParlamentars();
-            return View(result);
+            //ViewBag.Title = "Empenhos";
+            //var result = _repository.GetParlamentars();
+            //return View(result);
+
+            return View();
         }
     }
 }
