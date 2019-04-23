@@ -15,7 +15,7 @@ namespace EmendasModel
         public Partido Partido { get; set; }
         public int PartidoId { get; set; }
         public ICollection<Emenda> Emendas { get; set; }
-       
+        public User User { get; set; }
 
     }
 }

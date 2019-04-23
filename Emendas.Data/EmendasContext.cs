@@ -1,11 +1,12 @@
 ﻿using EmendasModel;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+
 
 
 namespace Emendas.Data
 {
-    public class EmendasContext : DbContext
+    public class EmendasContext : IdentityDbContext<User>
     {
 
         //    public static readonly LoggerFactory MyLoggerFactory
@@ -26,6 +27,8 @@ namespace Emendas.Data
             //optionsBuilder.UseSqlite( "Data Source = Emendas.sqlite");
             base.OnConfiguring(optionsBuilder);
 
+
+            
             //optionsBuilder.UseSqlServer("Server = DESKTOP-GI6KUR4; Database = Emendas; User Id = sa; Password = saninatobiassimba123; ");
             //base.OnConfiguring(optionsBuilder);
         }
@@ -74,6 +77,8 @@ namespace Emendas.Data
 
 
 
+
+            base.OnModelCreating(modelBuilder);
 
 
         }
